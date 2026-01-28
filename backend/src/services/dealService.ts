@@ -70,7 +70,7 @@ class DealService {
    * Get Single Deal by ID
    */
   async getDealById(dealId: string): Promise<IDeal> {
-    const deal = await Deal.findById(dealId).lean();
+    const deal = await Deal.findById(dealId);
 
     if (!deal) {
       throw new AppError("Deal not found", 404);

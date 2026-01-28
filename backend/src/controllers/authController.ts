@@ -30,12 +30,11 @@ class AuthController {
       res,
       {
         user: {
-          id: result.user?._id,
+          id: result.user?.id,
           email: result.user?.email,
           name: result.user?.name, // 👈 return name
           role: result.user?.role,
           isVerified: result.user?.isVerified,
-          createdAt: result.user?.createdAt,
         },
         accessToken: result.accessToken,
       },

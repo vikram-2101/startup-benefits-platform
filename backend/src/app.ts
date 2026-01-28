@@ -38,7 +38,7 @@ const createApp = () => {
   app.use(cookieParser());
 
   // Request Logger
-  app.use((req: Request, res: Response, next) => {
+  app.use((req: Request, _res: Response, next) => {
     logger.info({
       method: req.method,
       url: req.url,
@@ -48,7 +48,7 @@ const createApp = () => {
   });
 
   // Health Check
-  app.get("/health", (req: Request, res: Response) => {
+  app.get("/health", (_req: Request, res: Response) => {
     res.status(200).json({
       success: true,
       message: "Server is healthy",

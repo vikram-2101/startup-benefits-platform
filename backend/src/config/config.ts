@@ -34,11 +34,11 @@ const config: Config = {
   },
 
   jwt: {
-    accessSecret: process.env.JWT_ACCESS_SECRET || "access-secret-change-this",
+    accessSecret: process.env.JWT_ACCESS_SECRET ?? "access-secret-change-this",
     refreshSecret:
-      process.env.JWT_REFRESH_SECRET || "refresh-secret-change-this",
-    accessExpiry: process.env.JWT_ACCESS_EXPIRY || "15m",
-    refreshExpiry: process.env.JWT_REFRESH_EXPIRY || "7d",
+      process.env.JWT_REFRESH_SECRET ?? "refresh-secret-change-this",
+    accessExpiry: process.env.JWT_ACCESS_EXPIRY ?? "15m",
+    refreshExpiry: process.env.JWT_REFRESH_EXPIRY ?? "7d",
   },
 
   cors: {

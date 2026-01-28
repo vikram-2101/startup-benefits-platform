@@ -23,7 +23,7 @@ interface JwtPayload {
  * Verifies access token and attaches user to request
  */
 export const authenticate = asyncHandler(
-  async (req: Request, res: Response, next: NextFunction) => {
+  async (req: Request, _res: Response, next: NextFunction) => {
     // Extract token from Authorization header
     const authHeader = req.headers.authorization;
 
@@ -76,7 +76,7 @@ export const authenticate = asyncHandler(
  * Checks if user is verified (for locked deals)
  */
 export const requireVerified = asyncHandler(
-  async (req: Request, res: Response, next: NextFunction) => {
+  async (req: Request, _res: Response, next: NextFunction) => {
     if (!req.user?.isVerified) {
       throw new AppError(
         "Account verification required to access this resource",
@@ -92,7 +92,7 @@ export const requireVerified = asyncHandler(
  */
 export const requireRole = (...roles: string[]) => {
   return asyncHandler(
-    async (req: Request, res: Response, next: NextFunction) => {
+    async (req: Request, _res: Response, next: NextFunction) => {
       if (!req.user || !roles.includes(req.user.role)) {
         throw new AppError(
           "You do not have permission to perform this action",

@@ -95,8 +95,9 @@ userSchema.methods.removeRefreshToken = async function (
   hashedToken: string,
 ): Promise<void> {
   this.refreshTokens = this.refreshTokens.filter(
-    (rt) => rt.token !== hashedToken,
+    (rt: { token: string; createdAt: Date }) => rt.token !== hashedToken,
   );
+
   await this.save();
 };
 

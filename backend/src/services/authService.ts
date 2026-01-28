@@ -1,9 +1,9 @@
-import jwt from "jsonwebtoken";
+import * as jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import config from "../config/config.js";
 import User from "../models/User.js";
 import AppError from "../utils/AppError.js";
-
+import { SignOptions } from "jsonwebtoken";
 /**
  * Auth Service
  * Handles authentication business logic
@@ -13,18 +13,26 @@ class AuthService {
    * Generate JWT Access Token
    */
   generateAccessToken(userId: string): string {
-    return jwt.sign({ userId }, config.jwt.accessSecret, {
-      expiresIn: config.jwt.accessExpiry,
-    });
+    return jwt.sign(
+      { userId },
+      config.jwt.accessSecret as string,
+      {
+        expiresIn: config.jwt.accessExpiry as any, // Cast to any or SecretValue if needed
+      } as SignOptions,
+    );
   }
 
   /**
    * Generate JWT Refresh Token
    */
   generateRefreshToken(userId: string): string {
-    return jwt.sign({ userId }, config.jwt.refreshSecret, {
-      expiresIn: config.jwt.refreshExpiry,
-    });
+    return jwt.sign(
+      { userId },
+      config.jwt.refreshSecret as string,
+      {
+        expiresIn: config.jwt.refreshExpiry as any,
+      } as SignOptions,
+    );
   }
 
   /**

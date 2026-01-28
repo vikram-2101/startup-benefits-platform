@@ -81,8 +81,14 @@ class DealController {
       expiresAt: deal.expiresAt,
       createdAt: deal.createdAt,
     };
+
     console.log("transformedDeal : ", transformedDeal);
-    ApiResponse.success(res, transformedDeal, "Deal retrieved successfully");
+
+    return ApiResponse.success(
+      res,
+      transformedDeal,
+      "Deal retrieved successfully",
+    );
   });
 
   /**

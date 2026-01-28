@@ -14,16 +14,19 @@ const validate = (schema: ZodSchema) => {
         query: req.query,
         params: req.params,
       });
-      next();
+
+      return next(); // ✅ add return
     } catch (error) {
       if (error instanceof ZodError) {
         const errors = error.errors.map((err) => ({
           field: err.path.join("."),
           message: err.message,
         }));
-        return ApiResponse.validationError(res, errors);
+
+        return ApiResponse.validationError(res, errors); // already returning
       }
-      next(error);
+
+      return next(error); // ✅ add return
     }
   };
 };
