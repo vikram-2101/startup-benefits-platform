@@ -35,18 +35,22 @@ export default function DealsPage() {
         url += `isLocked=true&`;
       }
 
-      const res = await api.get<DealsResponse>(url);
-      console.log("res.data", res.data);
-      return res.data; // ✅ unwrap HTTP response
+      const res = await api.get<{
+        success: boolean;
+        data: DealsResponse;
+      }>(url);
+
+      return res.data; // ✅ correct level
     },
   });
 
   const filteredDeals =
-    data?.deals?.filter(
+    data?.deals.filter(
       (deal) =>
         deal.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         deal.description.toLowerCase().includes(searchQuery.toLowerCase()),
     ) || [];
+
   console.log("filteredDeals", filteredDeals[0]);
   return (
     <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8">

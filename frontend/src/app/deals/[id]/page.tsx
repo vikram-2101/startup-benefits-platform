@@ -50,7 +50,7 @@ export default function DealDetailPage() {
       return;
     }
 
-    if (deal.data?.isLocked && !user.isVerified) {
+    if (deal?.isLocked && !user.isVerified) {
       alert(
         "This deal requires verification. Please verify your account first.",
       );
@@ -130,9 +130,9 @@ export default function DealDetailPage() {
             <div>
               <div className="flex items-center space-x-3 mb-4">
                 <span className="px-3 py-1 text-sm font-medium text-primary-700 bg-primary-50 rounded-full">
-                  {deal.data.category}
+                  {deal.category}
                 </span>
-                {deal.data.isLocked && (
+                {deal.isLocked && (
                   <span className="px-3 py-1 text-sm font-medium text-gray-600 bg-gray-200 rounded-full flex items-center space-x-1">
                     <Lock className="w-4 h-4" />
                     <span>Verification Required</span>
@@ -140,9 +140,9 @@ export default function DealDetailPage() {
                 )}
               </div>
               <h1 className="text-4xl font-bold text-gray-900 mb-2">
-                {deal.data?.title}
+                {deal?.title}
               </h1>
-              <p className="text-lg text-gray-600">{deal.data?.description}</p>
+              <p className="text-lg text-gray-600">{deal?.description}</p>
             </div>
 
             {/* Stats Grid */}
@@ -156,7 +156,7 @@ export default function DealDetailPage() {
                   Discount
                 </p>
                 <p className="text-2xl font-bold text-primary-900">
-                  {deal.data?.discount}
+                  {deal?.discount}
                 </p>
               </motion.div>
 
@@ -167,11 +167,11 @@ export default function DealDetailPage() {
                 <CheckCircle className="w-8 h-8 text-green-600 mb-2" />
                 <p className="text-sm text-green-700 font-medium mb-1">Value</p>
                 <p className="text-2xl font-bold text-green-900">
-                  {deal.data.value}
+                  {deal.value}
                 </p>
               </motion.div>
 
-              {deal.data.expiresAt && (
+              {deal.expiresAt && (
                 <motion.div
                   whileHover={{ scale: 1.05 }}
                   className="bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl p-6 border-2 border-orange-200"
@@ -181,7 +181,7 @@ export default function DealDetailPage() {
                     Expires
                   </p>
                   <p className="text-lg font-bold text-orange-900">
-                    {new Date(deal.data.expiresAt).toLocaleDateString()}
+                    {new Date(deal?.expiresAt).toLocaleDateString()}
                   </p>
                 </motion.div>
               )}
@@ -195,11 +195,11 @@ export default function DealDetailPage() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-xl font-bold text-gray-900">
-                    {deal.data?.partner?.name}
+                    {deal?.partner?.name}
                   </p>
-                  {deal.data?.partner?.website && (
+                  {deal?.partner?.website && (
                     <a
-                      href={deal.data?.partner?.website}
+                      href={deal?.partner?.website}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-primary-600 hover:text-primary-700 flex items-center space-x-1 mt-1"
@@ -213,13 +213,13 @@ export default function DealDetailPage() {
             </div>
 
             {/* Requirements */}
-            {deal.data.requirements && deal.data.requirements.length > 0 && (
+            {deal.requirements && deal.requirements.length > 0 && (
               <div className="pt-6 border-t border-gray-200">
                 <h3 className="text-lg font-semibold text-gray-900 mb-4">
                   Requirements
                 </h3>
                 <ul className="space-y-2">
-                  {deal.data?.requirements.map((requirement, index) => (
+                  {deal?.requirements.map((requirement, index) => (
                     <motion.li
                       key={index}
                       initial={{ opacity: 0, x: -20 }}
@@ -237,7 +237,7 @@ export default function DealDetailPage() {
 
             {/* Claim Button */}
             <div className="pt-6 border-t border-gray-200">
-              {deal.data?.isLocked && (!user || !user.isVerified) ? (
+              {deal?.isLocked && (!user || !user.isVerified) ? (
                 <div className="bg-yellow-50 border-2 border-yellow-200 rounded-xl p-4 mb-4">
                   <div className="flex items-start space-x-3">
                     <AlertCircle className="w-5 h-5 text-yellow-600 mt-0.5" />
@@ -264,7 +264,7 @@ export default function DealDetailPage() {
                 }
                 className={`w-full py-4 rounded-xl font-semibold text-lg transition-all ${
                   claimMutation.isPending ||
-                  (deal.data.isLocked && (!user || !user.isVerified))
+                  (deal.isLocked && (!user || !user.isVerified))
                     ? "bg-gray-300 text-gray-500 cursor-not-allowed"
                     : "bg-gradient-to-r from-primary-600 to-primary-700 text-white hover:from-primary-700 hover:to-primary-800 shadow-lg hover:shadow-xl"
                 }`}

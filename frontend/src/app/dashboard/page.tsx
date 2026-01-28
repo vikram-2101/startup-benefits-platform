@@ -15,6 +15,7 @@ import { api } from "@/src/lib/api";
 import { useAuth } from "@/src/context/authContext";
 import ProtectedRoute from "@/src/components/ProtectedRoute";
 import Link from "next/link";
+import { Claim } from "@/src/lib/types";
 
 function DashboardContent() {
   const { user } = useAuth();
@@ -22,11 +23,15 @@ function DashboardContent() {
   const { data: claims = [], isLoading } = useQuery({
     queryKey: ["claims"],
     queryFn: async () => {
-      const res = await api.get("/claims/me");
-      return res.data.data;
+      const res = await api.get<{
+        success: boolean;
+        data: { claims: Claim[] };
+      }>("/claims/me");
+      return res.data.claims;
     },
   });
-  console.log("claims:  ", claims);
+  console.log("user", user);
+  // console.log("claims:  ", claims);
   const getStatusColor = (status: string) => {
     switch (status) {
       case "approved":
@@ -83,9 +88,7 @@ function DashboardContent() {
               </div>
               <div>
                 <p className="text-sm text-gray-500">Name</p>
-                <p className="font-semibold text-gray-900">
-                  {user.data.user?.name}
-                </p>
+                <p className="font-semibold text-gray-900">{user?.name}</p>
               </div>
             </div>
             <div className="flex items-center space-x-3">
@@ -94,9 +97,7 @@ function DashboardContent() {
               </div>
               <div>
                 <p className="text-sm text-gray-500">Email</p>
-                <p className="font-semibold text-gray-900">
-                  {user.data.user?.email}
-                </p>
+                <p className="font-semibold text-gray-900">{user?.email}</p>
               </div>
             </div>
             <div className="flex items-center space-x-3">
@@ -106,7 +107,7 @@ function DashboardContent() {
               <div>
                 <p className="text-sm text-gray-500">Verification</p>
                 <p
-                  className={`font-semibold ${user.data.user?.isVerified ? "text-green-600" : "text-yellow-600"}`}
+                  className={`font-semibold ${user?.isVerified ? "text-green-600" : "text-yellow-600"}`}
                 >
                   {user?.isVerified ? "Verified" : "Not Verified"}
                 </p>

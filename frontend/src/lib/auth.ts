@@ -14,7 +14,7 @@ export const authService = {
       name,
     });
 
-    const data = res.data;
+    const data = res;
 
     this.setTokens(data.accessToken, data.refreshToken);
     return data;
@@ -26,7 +26,7 @@ export const authService = {
       password,
     });
 
-    const data = res.data;
+    const data = res;
     this.setTokens(data.accessToken, data.refreshToken);
     return data;
   },
